@@ -11,6 +11,8 @@ const network = {
 };
 
 var _identity = null;
+var _scatter = null;
+var _eos = null;
 
 document.addEventListener('scatterLoaded', scatterExtension => {
     const scatter = window.scatter;
@@ -27,14 +29,20 @@ document.addEventListener('scatterLoaded', scatterExtension => {
     }).then(identity => {
 
         const account = scatter.identity.accounts.find(x => x.blockchain === 'eos');
+        console.log('1111');
         console.log(account);
-        
+        console.log('2222');
+        console.log(scatter);
+        console.log('3333');
+        console.log(scatter.eos);
+
         // You can pass in any additional options you want into the eosjs reference.
         const eosOptions = { expireInSeconds:60 };
-        console.log('xxxx');
-        // Get a proxy reference to eosjs which you can use to sign transactions with a user's Scatter.
         const eos = scatter.eos(network, Eos, eosOptions);
-        console.log(eos);
+
+        console.log('4444');
+        console.log(Eos);
+        console.log('5555');
         _identity = identity;
 
     }).catch(error => {
@@ -46,6 +54,16 @@ document.addEventListener('scatterLoaded', scatterExtension => {
 
 var txn = function() {
     console.log('txn test');
+    console.log(Eos);
+
+
+
+
+
     console.log(eos);
+            
+    eos.transfer({from: 'bob123451234', to: 'mary12345123', quantity: '1.0000 EOS', memo: 'test'}, (error, result) => {
+        console.log(result);
+    });
 
 }
